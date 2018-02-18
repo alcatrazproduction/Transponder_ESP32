@@ -1,0 +1,82 @@
+Carrier is 5 Mhz
+data rate is 1.25 Mhz, so 4 clock carrier for 1 data bit
+
+we need 8*12 bits for a telegram : 96 bits
+and are coded on 4 cycles of clock 
+
+so it will be 96 * 4 clock definition, resulting in 384 cycles
+we need 6 bank of 64 cyclers to encode one telegram
+
+
+
+; Macro to sent one bit
+SENDONEBIT MACRO addr
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+    endm
+
+
+; Macro to send one byte addressed by addrb. Warning: original byte is cleared!
+SENDONEBYTE MACRO addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    SENDONEBIT addrb
+    endm
+    
+SENDONEBIT MACRO addr
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+
+    NOP
+    LSLF  addr, 1
+    BTFSC STATUS, C  ; // jump if bit is 0 ... modulation bit doesn't change
+    XORWF MDCON , 1    ; // invert modulation bit (if bit is 1)
+    ;XORWF PORTA , 1    ; // invert debug output
+    endm
